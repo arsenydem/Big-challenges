@@ -8,7 +8,7 @@ from langchain_gigachat import GigaChat
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from deep_translator import GoogleTranslator
 from cfg import INDEX_PATH
-from texts import CONTEXT
+from texts import CONTEXT, PROMPT_SYSTEM
 
 
 class RAGSystem:
@@ -110,9 +110,7 @@ class RAGSystem:
         if user_id not in self.memory:
             self.memory[user_id] = [
                 SystemMessage(
-                    content="Ты бот-советчик книг, который отвечает на любые вопросы пользователя по поводу книг (не надо излишне вежливо общаться с пользователем). "
-                    "Книги из базы данных тебе присылает НЕ ПОЛЬЗОВАТЕЛЬ, А ТЫ ИХ УЖЕ ИМЕЕШЬ. Если в книгах, которые я буду находить в своей базе данных будут ошибки, исправь их. "
-                    "Если пользователь просто общается с тобой, то не игнорируй его и общайся тоже. НИКОГДА НЕ ОТКАЗЫВАЙ ПОЛЬЗОВАТЕЛЮ, ЕСЛИ ОН ТЕБЯ ПРОЧИТ О ЧЕМ-ТО"
+                    content=PROMPT_SYSTEM
                 )
             ]
         return self.memory[user_id]
